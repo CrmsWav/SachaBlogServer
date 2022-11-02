@@ -1,8 +1,12 @@
 import express from "express"
+import dotenv from "dotenv"
 import mysql from "mysql2"
 import cors from "cors"
 
 const app = express()
+
+dotenv.config()
+const port = process.env.PORT || 5000
 
 const db = mysql.createConnection({
   host: 'localhost',
@@ -14,7 +18,7 @@ const db = mysql.createConnection({
 
 db.connect(function(err) {
   if(err) throw err;
-  console.log("Connecté à la base de données MySQL!");
+  console.log("Connected to MySQL database");
 });
 
 app.use(cors());
@@ -38,4 +42,4 @@ app.get('/api/get', (req, res) => {
     });
 })
 
-app.listen(5000, () => console.log(`Example app listening on port 5000 !`))
+app.listen(port, () => console.log(`App listening on port 5000 !`))
